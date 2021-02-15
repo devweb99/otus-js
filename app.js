@@ -1,34 +1,33 @@
-/*document.addEventListener('click',function(element){
-    let current = element.target
-    
-    getPath(current)
-})*/
+function getPath(el) { 
+  let stack = []
 
-function getPath(el) {
-    let nodes = []
-    let select = ''
-    
-    while (!el.classList.contains('body')) {
-        el = el.parentElement;
-        
-        if (!el) {
-            break;
-        }
-  
-        let cnode = ''
-        cnode += el.tagName
-    
-        if (el.id)
-            cnode += '#' + el.id
+  while (el.parentNode != null) {
+    let sibCount = 0
+    let sibIndex = 0
 
-        if (el.className) {
-            cnode += '.' + el.className.replace(/ /g, '.')
+    for (let i = 0; i < el.parentNode.childNodes.length; i++) {
+
+      let sib = el.parentNode.childNodes[i]
+
+      if (sib.nodeName == el.nodeName) {
+        if (sib === el) {
+          sibIndex = sibCount
         }
-			
-        nodes.push(cnode)
+
+        sibCount++
+      }
     }
-	
-    nodes.reverse()
-    
-	return nodes.join('>')
+    if (el.hasAttribute('id') && el.id != '') {
+      stack.unshift(el.nodeName.toLowerCase() + '#' + el.id)
+    } else if (sibCount > 1) {
+      stack.unshift(el.nodeName.toLowerCase() + ':eq(' + sibIndex + ')')
+    } else {
+      stack.unshift(el.nodeName.toLowerCase())
+    }
+    el = el.parentNode
+  }
+  return stack.slice(1) 
 }
+
+let path = getDomPath(document.querySelector('h1'))
+console.log(path.join(' > '))
