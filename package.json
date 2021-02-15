@@ -1,0 +1,22 @@
+{
+  "name": "otus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devweb99/otus-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devweb99/otus-js/issues"
+  },
+  "homepage": "https://github.com/devweb99/otus-js#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
